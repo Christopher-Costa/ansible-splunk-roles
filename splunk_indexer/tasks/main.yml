@@ -1,0 +1,4 @@
+---
+# tasks file for splunk_indexer
+
+- include_tasks: install_CS_app.yml

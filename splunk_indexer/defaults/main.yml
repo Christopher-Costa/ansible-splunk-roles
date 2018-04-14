@@ -1,0 +1,4 @@
+---
+# defaults file for splunk_indexer
+
+cs_app_name: Lab_TA_role_Cluster_Slave

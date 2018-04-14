@@ -7,5 +7,4 @@
     state: enabled
     permanent: true
     immediate: true
-  loop:
-    - "{{ splunk_ports }}"
+  loop: "{{ splunk_ports }}"

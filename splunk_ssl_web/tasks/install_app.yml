@@ -1,0 +1,28 @@
+- name: Create {{ app_name }} app directories
+  become: yes
+  become_user: splunk
+  file:
+    state: directory
+    path: /opt/splunk/etc/apps/{{ app_name }}/local/
+
+- name: Create {{ app_name }} app files
+  become: yes
+  become_user: splunk
+  copy:
+    content: ''
+    dest: /opt/splunk/etc/apps/{{ app_name }}/local/web.conf
+    force: no
+
+- name: Configure web.conf
+  become: true
+  become_user: splunk
+  blockinfile:
+    path: /opt/splunk/etc/apps/{{ app_name }}/local/web.conf
+    marker: "## {mark} ANSIBLE MANAGED BLOCK ##" 
+    block: |
+      [settings]
+      enableSplunkWebSSL = true
+      privKeyPath = {{ server_key }}
+      serverCert = {{ server_cert }}
+  notify: 
+    - restart Splunk

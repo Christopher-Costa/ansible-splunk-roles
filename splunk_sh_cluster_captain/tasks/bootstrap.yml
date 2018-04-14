@@ -1,0 +1,21 @@
+---
+- name: Check if captain is configured
+  become: true
+  become_user: "{{ splunk_user }}"
+  command: /opt/splunk/bin/splunk show shcluster-status -auth admin:{{ splunk_admin_password }}
+  args:
+    warn: no
+  register: captain_status
+  failed_when: no
+  changed_when: no
+
+- name: Bootstrap Cluster Captain
+  become: true
+  become_user: "{{ splunk_user }}"
+  shell: >
+    /opt/splunk/bin/splunk bootstrap shcluster-captain
+    -auth admin:{{ splunk_admin_password }}
+    -servers_list "{{ splunk_sh_servers_list }}"
+  when: captain_status.stderr.find("This node is not part of any cluster configuration") == false
+  notify: 
+    - restart Splunk

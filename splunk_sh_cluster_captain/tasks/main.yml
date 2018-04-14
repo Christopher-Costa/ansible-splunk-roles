@@ -1,0 +1,4 @@
+---
+# tasks file for splunk_sh_cluster_captain
+
+- include_tasks: bootstrap.yml

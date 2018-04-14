@@ -1,0 +1,4 @@
+---
+# tasks file for splunk_sh_cluster_member
+
+- include_tasks: initialize.yml

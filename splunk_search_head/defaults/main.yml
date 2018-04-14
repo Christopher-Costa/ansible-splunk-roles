@@ -1,0 +1,4 @@
+---
+# defaults file for splunk_search_head
+
+app_name: Lab_TA_role_Search_Head

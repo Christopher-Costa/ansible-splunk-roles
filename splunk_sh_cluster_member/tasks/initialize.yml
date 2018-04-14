@@ -1,0 +1,26 @@
+---
+- name: Check if cluster is initialized
+  become: true
+  become_user: "{{ splunk_user }}"
+  command: /opt/splunk/bin/splunk show shcluster-status -auth admin:{{ splunk_admin_password }}
+  args:
+    warn: no
+  register: shcluster_status
+  failed_when: no
+  changed_when: no
+
+- name: Initialize cluster member
+  become: true
+  become_user: "{{ splunk_user }}"
+  shell: >
+    /opt/splunk/bin/splunk init shcluster-config
+    -auth admin:{{ splunk_admin_password }}
+    -mgmt_uri https://{{ sys_ip }}:8089
+    -replication_port {{ splunk_sh_replication_port }}
+    -replication_factor 2
+    -conf_deploy_fetch_url https://{{ hostvars[deployer]['sys_ip'] }}:8089
+    -secret {{ splunk_cluster_password }}
+    -shcluster_label {{ splunk_shcluster_label }}
+  when: shcluster_status.stderr.find("Search Head Clustering is not enabled on this node.") == false
+  notify: 
+    - restart Splunk

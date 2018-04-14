@@ -3,6 +3,3 @@
 
 splunk_user: splunk
 splunk_group: splunk
-
-server_pki_root: /opt/splunk/etc/auth/local
-#server_ca_cert_dir: "{{ server_pki_root }}/ca"

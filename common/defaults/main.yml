@@ -1,2 +1,4 @@
 ---
 # defaults file for common
+
+server_pki_root: /opt/splunk/etc/auth/local

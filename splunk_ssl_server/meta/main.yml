@@ -57,5 +57,5 @@ dependencies:
   # if you add dependencies to this list.
 
   - { role: splunk/common }
-  - { role: ca/ca_certificates, pki_owner: splunk, pki_group: splunk, server_ca_cert_dir: /opt/splunk/etc/auth/local/ca }
+  - { role: ca/ca_certificates, pki_owner: "{{ splunk_user }}", pki_group: "{{ splunk_group }}", server_ca_cert_dir: /opt/splunk/etc/auth/local/ca }
   - { role: splunk/splunk_certificate, cert_label: Server }

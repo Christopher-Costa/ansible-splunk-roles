@@ -4,8 +4,8 @@
   file:
     state: directory    
     path: "{{ item }}"
-    owner: "{{ pki_owner }}"
-    group: "{{ pki_group }}"
+    owner: "{{ splunk_user }}"
+    group: "{{ splunk_group }}"
     mode: "{{ pki_dir_mode }}"
   loop:
     - "{{ server_key_dir }}"

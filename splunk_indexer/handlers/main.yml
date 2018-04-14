@@ -3,5 +3,5 @@
 
 #- name: restart Splunk
 #  become: yes
-#  become_user: splunk
+#  become_user: "{{ splunk_user }}"
 #  command: /opt/splunk/bin/splunk restart

@@ -1,7 +1,7 @@
 ---
 - name: Create {{ cert_label }} server private key
   become: yes
-  become_user: "{{ pki_owner }}"
+  become_user: "{{ splunk_user }}"
   shell: > 
     openssl 
     gen{{ key_type }}

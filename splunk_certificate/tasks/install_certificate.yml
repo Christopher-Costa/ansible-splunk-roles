@@ -1,10 +1,10 @@
 ---
 - name: Install {{ cert_label }} certificate
   become: yes
-  become_user: "{{ pki_owner }}"
+  become_user: "{{ splunk_user }}"
   copy:
     src: "{{ local_store }}/{{ inventory_hostname }}/{{ ca_dir }}/{{ ca_int_dir }}/{{ ca_cert_dir }}/{{ server_cert_name }}"
     dest: "{{ server_cert_dir }}/{{ server_cert_name }}"
-    owner: "{{ pki_owner }}"
-    group: "{{ pki_group }}"
+    owner: "{{ splunk_user }}"
+    group: "{{ splunk_group }}"
     mode: "{{ pki_file_mode }}"

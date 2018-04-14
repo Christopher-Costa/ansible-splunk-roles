@@ -10,5 +10,5 @@
   file:
     path: /etc/rc.d/init.d/splunk
     state: file
-    owner: splunk
-    group: splunk
+    owner: "{{ splunk_user }}"
+    group: "{{ splunk_group }}"

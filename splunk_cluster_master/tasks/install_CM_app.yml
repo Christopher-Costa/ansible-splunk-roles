@@ -1,20 +1,20 @@
 - name: Create {{ cm_app_name }} app directories
   become: yes
-  become_user: splunk
+  become_user: "{{ splunk_user }}"
   file:
     state: directory
     path: /opt/splunk/etc/apps/{{ cm_app_name }}/local/
 
 - name: Create {{ cm_app_name }} app files
   become: yes
-  become_user: splunk
+  become_user: "{{ splunk_user }}"
   file:
     state: touch
     path: /opt/splunk/etc/apps/{{ cm_app_name }}/local/server.conf
 
 - name: Configure server.conf
   become: true
-  become_user: splunk
+  become_user: "{{ splunk_user }}"
   blockinfile:
     path: /opt/splunk/etc/apps/{{ cm_app_name }}/local/server.conf
     marker: "## {mark} ANSIBLE MANAGED BLOCK ##" 

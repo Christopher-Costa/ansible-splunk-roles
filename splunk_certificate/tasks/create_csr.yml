@@ -1,0 +1,14 @@
+---
+- name: Create {{ cert_label }} Certificate Signing Request
+  become: yes
+  become_user: "{{ pki_owner }}"
+  shell: > 
+    openssl req
+    -new
+    -config {{ openssl_cnf_dir }}/openssl.cnf
+    -key {{ server_key_dir }}/{{ server_key_name }}
+    -{{ crypto_hash }}
+    -out {{ server_csr_dir }}/{{ server_csr_name }}
+    -subj "/C={{ cert_C }}/ST={{ cert_ST }}/L={{ cert_L }}/O={{ cert_O }}/OU={{ cert_OU }}/CN={{ cert_CN }}"
+  args:
+    creates: "{{ server_csr_dir }}/{{ server_csr_name }}" 

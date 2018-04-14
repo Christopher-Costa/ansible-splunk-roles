@@ -1,0 +1,24 @@
+---
+- name: Create {{ cert_label }} certificate bundle
+  become: yes
+  become_user: splunk
+  shell: >
+    cat
+    {{ server_cert }}
+    {{ server_key }}
+    {{ int_ca_cert }}
+    {{ root_ca_cert }}
+    >
+    {{ splunk_cert}}
+  args:
+    creates: "{{ splunk_cert }}"
+
+- name: Set permissions on {{ cert_label }} certificate bundle
+  become: yes
+  become_user: splunk
+  file:
+    path: "{{ splunk_cert }}"
+    state: file
+    owner: splunk
+    group: splunk
+    mode: 0600

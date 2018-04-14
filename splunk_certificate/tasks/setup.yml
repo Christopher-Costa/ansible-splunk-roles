@@ -1,0 +1,22 @@
+---
+- name: Create required directories
+  become: yes
+  file:
+    state: directory    
+    path: "{{ item }}"
+    owner: "{{ pki_owner }}"
+    group: "{{ pki_group }}"
+    mode: "{{ pki_dir_mode }}"
+  loop:
+    - "{{ server_key_dir }}"
+    - "{{ server_csr_dir }}"
+    - "{{ server_cert_dir }}" 
+
+- name: Install openssl.cnf
+  become: yes
+  template:
+    src: etc/pki/tls/openssl.cnf.j2
+    dest: "{{ openssl_cnf_dir }}/openssl.cnf"
+    owner: root
+    group: root
+    mode: 0644

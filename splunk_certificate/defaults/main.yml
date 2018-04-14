@@ -1,0 +1,35 @@
+---
+# defaults file for splunk_certificate
+
+openssl_cnf_dir: /etc/pki/tls
+
+server_cert_dir: "{{ server_pki_root }}/certs"
+server_cert_name: "{{ inventory_hostname }}.{{ cert_label | lower }}.cert.pem"
+server_cert: "{{ server_cert_dir }}/{{ server_cert_name }}"
+
+server_csr_dir: "{{ server_pki_root }}/csrs"
+server_csr_name: "{{ inventory_hostname }}.{{ cert_label | lower }}.csr.pem"
+server_csr: "{{ server_csr_dir }}/{{ server_csr_name }}"
+
+server_key_dir: "{{ server_pki_root }}/private"
+server_key_name: "{{ inventory_hostname }}.{{ cert_label | lower }}.key.pem"
+server_key: "{{ server_key_dir }}/{{ server_key_name }}"
+
+server_ca_cert_dir: "{{ server_pki_root }}/ca"
+root_ca_cert: "{{ server_ca_cert_dir }}/{{ root_cert }}"
+int_ca_cert: "{{ server_ca_cert_dir }}/{{ int_cert }}"
+
+splunk_cert_dir: "{{ server_cert_dir }}"
+splunk_cert_name: "{{ cert_label | lower }}.cert.pem"
+splunk_cert: "{{ splunk_cert_dir }}/{{ splunk_cert_name }}"
+
+cert_C: ""
+cert_ST: ""
+cert_L: ""
+cert_O: ""
+cert_OU: ""
+cert_CN: "{{ inventory_hostname }} - {{ cert_label }}"
+
+cert_type: server_cert
+
+make_bundle: yes

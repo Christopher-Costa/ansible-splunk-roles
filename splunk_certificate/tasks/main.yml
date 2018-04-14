@@ -1,0 +1,10 @@
+---
+# tasks file for splunk_certificate
+
+- include_tasks: setup.yml
+- include_tasks: create_key.yml
+- include_tasks: create_csr.yml
+- include_tasks: sign_certificate.yml
+- include_tasks: install_certificate.yml
+- include_tasks: create_certificate_bundle.yml
+  when: make_bundle|bool == true

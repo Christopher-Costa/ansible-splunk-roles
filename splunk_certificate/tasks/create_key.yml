@@ -1,0 +1,11 @@
+---
+- name: Create {{ cert_label }} server private key
+  become: yes
+  become_user: "{{ pki_owner }}"
+  shell: > 
+    openssl 
+    gen{{ key_type }}
+    -out {{ server_key_dir }}/{{ server_key_name }}
+    {{ key_length }}
+  args:
+    creates: "{{ server_key_dir }}/{{ server_key_name }}" 

@@ -1,0 +1,35 @@
+---
+- name: Fetch {{ cert_label }} CSR locally
+  become: yes
+  fetch:
+    src: "{{ server_csr_dir }}/{{ server_csr_name }}"
+    dest: "{{ local_store }}"
+
+- name: Copy {{ cert_label }} CSR to Certificate Authority
+  become: yes
+  delegate_to: "{{ certificate_authority }}"
+  copy:
+    src: "{{ local_store }}/{{ inventory_hostname }}/{{ server_csr_dir }}/{{ server_csr_name }}"
+    dest: "{{ ca_dir }}/{{ ca_int_dir }}/{{ ca_csr_dir }}/{{ server_csr_name }}"
+    force: no
+
+- name: Sign {{ cert_label }} certificate
+  become: yes
+  delegate_to: "{{ certificate_authority }}"
+  shell: > 
+    openssl ca
+    -extensions {{ cert_type }} -notext -batch
+    -md {{ crypto_hash }}
+    -days {{ days_valid }}
+    -config {{ ca_dir }}/{{ ca_int_dir }}/openssl.cnf
+    -in {{ ca_dir }}/{{ ca_int_dir }}/{{ ca_csr_dir }}/{{ server_csr_name }}
+    -out {{ ca_dir }}/{{ ca_int_dir }}/{{ ca_cert_dir }}/{{ server_cert_name }}
+  args:
+    creates: "{{ ca_dir }}/{{ ca_int_dir }}/{{ ca_cert_dir }}/{{ server_cert_name }}" 
+
+- name: Fetch {{ cert_label }} certificate locally
+  become: yes
+  delegate_to: "{{ certificate_authority }}"
+  fetch:
+    src: "{{ ca_dir }}/{{ ca_int_dir }}/{{ ca_cert_dir }}/{{ server_cert_name }}"
+    dest: "{{ local_store }}" 

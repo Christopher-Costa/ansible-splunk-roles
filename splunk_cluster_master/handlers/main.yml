@@ -1,0 +1,7 @@
+---
+# handlers file for splunk_cluster_master
+
+#- name: restart Splunk
+#  become: yes
+#  become_user: splunk
+#  command: /opt/splunk/bin/splunk restart

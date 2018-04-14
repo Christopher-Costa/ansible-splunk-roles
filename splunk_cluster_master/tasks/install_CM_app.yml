@@ -1,0 +1,34 @@
+- name: Create {{ cm_app_name }} app directories
+  become: yes
+  become_user: splunk
+  file:
+    state: directory
+    path: /opt/splunk/etc/apps/{{ cm_app_name }}/local/
+
+- name: Create {{ cm_app_name }} app files
+  become: yes
+  become_user: splunk
+  file:
+    state: touch
+    path: /opt/splunk/etc/apps/{{ cm_app_name }}/local/server.conf
+
+- name: Configure server.conf
+  become: true
+  become_user: splunk
+  blockinfile:
+    path: /opt/splunk/etc/apps/{{ cm_app_name }}/local/server.conf
+    marker: "## {mark} ANSIBLE MANAGED BLOCK ##" 
+    block: |
+      [general]
+      site = {{ splunk_site }} 
+      
+      [clustering]
+      mode = master
+      pass4SymmKey = {{ splunk_cluster_password }}
+      multisite = true
+      available_sites = {{ splunk_available_sites }} 
+      site_replication_factor = origin:2,total:3
+      site_search_factor = origin:1,total:2
+      cluster_label = {{ splunk_cluster_label }}
+  notify: 
+    - restart Splunk

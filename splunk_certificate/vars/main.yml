@@ -1,2 +1,6 @@
 ---
 # vars file for splunk_certificate
+
+server_ca_cert_dir: "{{ server_pki_root }}/ca"
+server_root_ca_cert: "{{ server_ca_cert_dir }}/{{ root_cert }}"
+server_int_ca_cert: "{{ server_ca_cert_dir }}/{{ int_cert }}"

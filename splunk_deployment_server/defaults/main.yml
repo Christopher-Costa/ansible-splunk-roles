@@ -1,0 +1,5 @@
+---
+# defaults file for splunk_deployment_server
+
+fwd_cert_app_name: Lab_TA_outputs_Forwarder_SSL_Certs
+fwd_outputs_app_name: Lab_TA_outputs_Forwarder_SSL_Config

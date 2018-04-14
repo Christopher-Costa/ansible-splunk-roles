@@ -1,0 +1,32 @@
+---
+- name: Check to see if Splunk is installed
+  become: true
+  command: rpm -q splunk
+  args:
+    warn: no
+  register: splunk_installed
+  failed_when: no
+  changed_when: no
+
+- block:
+    - name: Copy {{ splunk_rpm_name }} to {{ copy_dir }}
+      become: true
+      copy:
+        src: "{{ splunk_rpm_name }}"
+        dest: "{{ copy_dir }}/{{ splunk_rpm_name }}"
+        owner: root
+        group: root
+        mode: 0664
+    
+    - name: Install {{ splunk_rpm_name }}
+      become: yes
+      yum:
+        name: "{{ copy_dir }}/{{ splunk_rpm_name }}"
+        state: installed
+  when: splunk_installed.rc != 0
+
+- name: Remove {{ splunk_rpm_name }}
+  become: yes
+  file:
+    path: "{{ copy_dir }}/{{ splunk_rpm_name }}"
+    state: absent

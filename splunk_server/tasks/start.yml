@@ -1,0 +1,11 @@
+---
+- name: Check if Splunk is running
+  become: yes
+  stat:
+    path: /opt/splunk/var/run/splunk/splunkd.pid
+  register: splunkpid
+
+- name: Start Splunk and accept licence
+  become: yes
+  shell: /opt/splunk/bin/splunk start --no-prompt --accept-license --answer-yes
+  when: splunkpid.stat.exists == False

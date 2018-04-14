@@ -1,0 +1,9 @@
+---
+# tasks file for install_splunk
+
+- include_tasks: tune.yml
+- include_tasks: install.yml
+- include_tasks: configure.yml
+- include_tasks: firewall.yml
+- include_tasks: start.yml
+- include_tasks: password.yml

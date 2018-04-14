@@ -1,0 +1,14 @@
+---
+- name: Enable init script
+  become: yes
+  command: /opt/splunk/bin/splunk enable boot-start -user splunk --accept-license --answer-yes
+  args:
+    creates: /etc/init.d/splunk
+
+- name: Fix ownership of splunk init.d script
+  become: yes
+  file:
+    path: /etc/rc.d/init.d/splunk
+    state: file
+    owner: splunk
+    group: splunk

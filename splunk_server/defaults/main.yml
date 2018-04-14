@@ -1,0 +1,9 @@
+---
+# defaults file for install_splunk
+
+copy_dir: /tmp
+splunk_rpm_name: splunk-7.0.3-fa31da744b51-linux-2.6-x86_64.rpm
+
+splunk_ports:
+  - 8000/tcp
+  - 8089/tcp

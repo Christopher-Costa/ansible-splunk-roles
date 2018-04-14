@@ -1,0 +1,7 @@
+---
+# handlers file for install_splunk
+
+- name: restart Splunk
+  become: yes
+  become_user: splunk
+  command: /opt/splunk/bin/splunk restart

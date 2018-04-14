@@ -1,0 +1,7 @@
+---
+- name: Disable transparent hugepages
+  blockinfile:
+    dest: /etc/rc.d/rc.local
+    block: "{{ lookup('file', 'etc/rc.local.snippet') }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK"
+  become: true

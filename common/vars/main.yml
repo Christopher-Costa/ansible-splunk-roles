@@ -1,0 +1,10 @@
+---
+# vars file for common
+
+pki_owner: splunk
+pki_group: splunk
+pki_dir_mode: 0700
+pki_file_mode: 0600
+
+server_pki_root: /opt/splunk/etc/auth/local
+server_ca_cert_dir: "{{ server_pki_root }}/ca"

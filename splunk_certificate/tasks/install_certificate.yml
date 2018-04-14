@@ -1,4 +1,14 @@
 ---
+- name: Create {{ server_cert_dir }} directory for PKI files
+  become: yes
+  become_user: "{{ splunk_user }}"
+  file:
+    path: "{{ server_cert_dir }}"
+    owner: "{{ splunk_user }}"
+    group: "{{ splunk_group }}"
+    mode: "{{ pki_dir_mode }}"
+    state: directory
+
 - name: Install {{ cert_label }} certificate
   become: yes
   become_user: "{{ splunk_user }}"

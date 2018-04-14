@@ -1,0 +1,4 @@
+---
+# defaults file for splunk_deployer
+
+app_name: Lab_TA_role_Deployer

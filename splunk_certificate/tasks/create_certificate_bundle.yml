@@ -6,10 +6,10 @@
     cat
     {{ server_cert }}
     {{ server_key }}
-    {{ int_ca_cert }}
-    {{ root_ca_cert }}
+    {{ server_int_ca_cert }}
+    {{ server_root_ca_cert }}
     >
-    {{ splunk_cert}}
+    {{ splunk_cert }}
   args:
     creates: "{{ splunk_cert }}"
 

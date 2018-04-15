@@ -1,7 +1,7 @@
 ---
 # handlers file for splunk_cluster_master
 
-#- name: restart Splunk
-#  become: yes
-#  become_user: "{{ splunk_user }}"
-#  command: /opt/splunk/bin/splunk restart
+- name: apply cluster-bundle
+  become: yes
+  become_user: "{{ splunk_user }}"
+  command: /opt/splunk/bin/splunk apply cluster-bundle --answer-yes -auth admin:{{ splunk_admin_password }} 

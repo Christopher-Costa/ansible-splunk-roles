@@ -1,7 +1,7 @@
 ---
 - name: Enable init script
   become: yes
-  command: /opt/splunk/bin/splunk enable boot-start -user splunk --accept-license --answer-yes
+  command: /opt/splunk/bin/splunk enable boot-start -user {{ splunk_user }} --accept-license --answer-yes
   args:
     creates: /etc/init.d/splunk
 

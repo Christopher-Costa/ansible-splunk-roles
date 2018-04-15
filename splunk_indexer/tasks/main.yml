@@ -2,3 +2,8 @@
 # tasks file for splunk_indexer
 
 - include_tasks: install_CS_app.yml
+- include_tasks: firewall.yml
+
+- include_role: 
+    name: splunk/common
+    tasks_from: disable_web

@@ -1,0 +1,14 @@
+---
+- name: Open up ports in firewalld
+  become: yes
+  firewalld:
+    port: "{{ item }}"
+    zone: public
+    state: enabled
+    permanent: true
+    immediate: true
+  loop:
+    - "{{ splunk_splunktcp_port }}/tcp"
+    - "{{ splunk_replication_port }}/tcp"
+    - "{{ splunk_syslog_port }}/tcp"
+    - "{{ splunk_syslog_port }}/udp"

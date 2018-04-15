@@ -1,0 +1,34 @@
+- name: Set app name and directory for disabling web
+  set_fact:
+    splunk_web_app_dir:  "{{ splunk_web_app_dir  | default('apps') }}"
+    splunk_web_app_name: "{{ splunk_web_app_name | default('Lab_TA_web_Disable') }}"
+
+- name: Create {{ splunk_web_app_name }} app directories
+  become: yes
+  become_user: "{{ splunk_user }}"
+  file:
+    state: directory
+    path: /opt/splunk/etc/{{ splunk_web_app_dir }}/{{ splunk_web_app_name }}/local/
+
+- name: Create {{ splunk_web_app_name }} app files
+  become: yes
+  become_user: "{{ splunk_user }}"
+  copy:
+    dest: /opt/splunk/etc/{{ splunk_web_app_dir }}/{{ splunk_web_app_name }}/local/web.conf
+    content: ""
+    force: no
+    group: "{{ splunk_group }}"
+    owner: "{{ splunk_user }}"
+
+- name: Configure web.conf
+  become: true
+  become_user: "{{ splunk_user }}"
+  blockinfile:
+    path: /opt/splunk/etc/{{ splunk_web_app_dir }}/{{ splunk_web_app_name }}/local/web.conf
+    marker: "## {mark} ANSIBLE MANAGED BLOCK ##" 
+    backup: yes
+    block: |
+      [settings]
+      startwebserver = 0  
+  notify: 
+    - restart Splunk

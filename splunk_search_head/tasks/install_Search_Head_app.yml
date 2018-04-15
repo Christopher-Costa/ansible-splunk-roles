@@ -25,10 +25,10 @@
       [clustering]
       mode = searchhead
       pass4SymmKey = {{ splunk_cluster_password }}
-      master_uri = clustermaster:one
+      master_uri = clustermaster:{{ hostvars[cluster_master]['sys_ip'] }}:{{ hostvars[cluster_master]['splunk_mgmt_port'] | default(8089) }}
 
-      [clustermaster:one]
-      master_uri = https://{{ hostvars[cluster_master]['sys_ip'] }}:8089
+      [clustermaster:{{ hostvars[cluster_master]['sys_ip'] }}:{{ hostvars[cluster_master]['splunk_mgmt_port'] | default(8089) }}]
+      master_uri = https://{{ hostvars[cluster_master]['sys_ip'] }}:{{ hostvars[cluster_master]['splunk_mgmt_port'] | default(8089) }}
       multisite = true
   notify: 
     - restart Splunk

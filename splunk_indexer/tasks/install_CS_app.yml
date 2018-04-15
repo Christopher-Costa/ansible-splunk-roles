@@ -29,7 +29,7 @@
       [replication_port://{{ splunk_replication_port }}]
 
       [clustering]
-      master_uri = https://{{ hostvars[cluster_master]['sys_ip'] }}:8089
+      master_uri = https://{{ hostvars[cluster_master]['sys_ip'] }}:{{ hostvars[cluster_master]['splunk_mgmt_port'] | default(8089) }}
       pass4SymmKey = {{ splunk_cluster_password }}
       mode = slave
   notify: 

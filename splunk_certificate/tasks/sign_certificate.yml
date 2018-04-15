@@ -17,6 +17,8 @@
 - name: Sign {{ cert_label }} certificate
   become: yes
   delegate_to: "{{ certificate_authority }}"
+  retries: 3
+  delay: 1
   shell: > 
     openssl ca
     -extensions {{ cert_type }} -notext -batch

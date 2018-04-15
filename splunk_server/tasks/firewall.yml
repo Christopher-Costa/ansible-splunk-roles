@@ -2,9 +2,8 @@
 - name: Open up ports in firewalld
   become: yes
   firewalld:
-    port: "{{ item }}"
+    port: "{{ splunk_mgmt_port }}/tcp"
     zone: public
     state: enabled
     permanent: true
     immediate: true
-  loop: "{{ splunk_ports }}"

@@ -1,0 +1,5 @@
+---
+# defaults file for splunk_forwarder
+
+copy_dir: /tmp
+splunk_rpm_name: splunkforwarder-7.0.3-fa31da744b51-linux-2.6-x86_64.rpm

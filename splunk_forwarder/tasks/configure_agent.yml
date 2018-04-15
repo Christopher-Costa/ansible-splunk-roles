@@ -1,0 +1,15 @@
+---
+- name: Configure deploymentclient.conf
+  become: true
+  become_user: "{{ splunk_user }}"
+  blockinfile:
+    path: /opt/splunkforwarder/etc/system/local/deploymentclient.conf
+    marker: "## {mark} ANSIBLE MANAGED BLOCK ##" 
+    backup: yes
+    create: yes
+    block: |
+      [deployment-client]
+      clientName = {{ inventory_hostname }}
+
+      [target-broker:deploymentServer]
+      targetUri = {{ hostvars[deployment_server]['sys_ip'] }}:8089	

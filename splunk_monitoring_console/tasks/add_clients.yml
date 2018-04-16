@@ -1,0 +1,11 @@
+---
+- name: Add monitoring clients
+  become: yes
+  become_user: "{{ splunk_user }}"
+  failed_when: no
+  shell: >
+         /opt/splunk/bin/splunk add search-server 
+         {{ hostvars[item]['sys_ip'] }}:{{ hostvars[item]['splunk_mgmt_port'] | default(8089) }} 
+         -remoteUsername admin 
+         -remotePassword {{ splunk_admin_password }}
+  loop: "{{ groups['splunk_servers'] }}"

@@ -1,4 +1,8 @@
 ---
 # tasks file for splunk_deployment_server
 
-- include_tasks: install_Fwd_Outputs_app.yml
+- include_tasks: install_apps.yml
+  tags: update
+
+- include_tasks: install_deployment-apps.yml
+  tags: update

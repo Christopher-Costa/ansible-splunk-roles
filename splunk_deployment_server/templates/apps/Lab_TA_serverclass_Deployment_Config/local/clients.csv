@@ -1,0 +1,4 @@
+client,site
+{% for host in groups['splunk_forwarders'] %}
+{{ host}},{{ hostvars[host]['splunk_site'] }}
+{% endfor -%}

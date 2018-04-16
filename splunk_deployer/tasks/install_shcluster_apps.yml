@@ -1,0 +1,27 @@
+---
+- name: Create shcluster apps directories
+  become: yes
+  become_user: "{{ splunk_user }}"
+  file:
+    state: directory
+    dest: "/opt/splunk/etc/shcluster/apps/{{ item.path }}"
+    owner: "{{ splunk_user }}"
+    group: "{{ splunk_group }}"
+  loop: "{{  lookup ('filetree', '../templates/shcluster/apps/' ) | selectattr('state', 'match', 'directory' ) | list }}"
+  loop_control:
+    label: "{{ item.path }}"
+
+- name: Create shcluster apps files
+  become: yes
+  become_user: "{{ splunk_user }}"
+  template:
+    src: "{{ item.src }}"
+    dest: "/opt/splunk/etc/shcluster/apps/{{ item.path }}"
+    owner: "{{ splunk_user }}"
+    group: "{{ splunk_group }}"
+  loop: "{{  lookup ('filetree', '../templates/shcluster/apps/' ) | selectattr('state', 'match', 'file' ) | list }}"
+  loop_control:
+    label: "{{ item.path }}"
+  notify: 
+    - apply shcluster-bundle
+    - stage shcluster-bundle

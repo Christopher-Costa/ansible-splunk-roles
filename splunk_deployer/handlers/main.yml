@@ -1,2 +1,14 @@
 ---
 # handlers file for splunk_deployer
+
+- name: stage shcluster-bundle
+  become: yes
+  become_user: "{{ splunk_user }}"
+  failed_when: no
+  command: /opt/splunk/bin/splunk apply shcluster-bundle -action stage -auth admin:{{ splunk_admin_password }} --answer-yes
+
+- name: apply shcluster-bundle
+  become: yes
+  become_user: "{{ splunk_user }}"
+  failed_when: no
+  command: /opt/splunk/bin/splunk apply shcluster-bundle -auth admin:{{ splunk_admin_password }} --answer-yes

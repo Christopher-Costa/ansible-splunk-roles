@@ -14,8 +14,9 @@
   file:
     name: "{{ item.path }}"
     state: absent
-  with_items:
-    - "{{ pki_files.files }}"
+  loop: "{{ pki_files.files }}"
+  loop_control:
+    label: "{{ item.path }}"
 
 - name: Remove certificates from index.txt
   delegate_to: "{{ certificate_authority }}" 

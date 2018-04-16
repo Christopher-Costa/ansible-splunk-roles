@@ -1,5 +1,6 @@
 ---
 # tasks file for splunk_search_head
 
-- include_tasks: install_apps.yml
+- include_tasks: local_server_config.yml
+- include_tasks: local_web_config.yml
 - include_tasks: firewall.yml

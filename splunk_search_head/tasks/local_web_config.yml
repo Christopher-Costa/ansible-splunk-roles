@@ -1,0 +1,15 @@
+- name: Configure web SSL
+  become: true
+  become_user: "{{ splunk_user }}"
+  blockinfile:
+    path: /opt/splunk/etc/system/local/web.conf
+    state: present
+    create: yes
+    marker: "## {mark} ANSIBLE MANAGED BLOCK ##" 
+    block: |
+      [settings]
+      enableSplunkWebSSL = true
+      privKeyPath = $SPLUNK_HOME/etc/auth/local/private/{{ inventory_hostname }}.web.key.pem
+      serverCert =  $SPLUNK_HOME/etc/auth/local/certs/{{ inventory_hostname }}.web.cert.pem 
+  notify: 
+    - restart Splunk

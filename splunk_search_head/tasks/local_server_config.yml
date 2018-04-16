@@ -1,0 +1,11 @@
+- name: Configure site
+  become: true
+  become_user: "{{ splunk_user }}"
+  create: yes
+  lineinfile:
+    path: /opt/splunk/etc/system/local/server.conf
+    state: present
+    insertafter: '^\[general\]$'
+    line: "site = {{ splunk_site }}"
+  notify: 
+    - restart Splunk

@@ -1,4 +1,4 @@
 ---
 # tasks file for splunk_search_head
 
-- include_tasks: install_Search_Head_app.yml
+- include_tasks: install_apps.yml

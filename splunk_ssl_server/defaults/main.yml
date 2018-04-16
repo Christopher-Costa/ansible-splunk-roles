@@ -2,5 +2,3 @@
 # defaults file for splunk_ssl_server
 
 cert_label: Server
-
-app_name: Lab_TA_server_SSL_Config

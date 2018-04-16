@@ -23,6 +23,5 @@
       [SSL]
       serverCert = {{ splunk_cert }}
       sslPassword = 
-      sslRootCAPath = {{ server_ca_cert_dir }}/{{ root_cert }}
   notify: 
     - restart Splunk

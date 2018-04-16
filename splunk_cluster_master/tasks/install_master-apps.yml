@@ -1,0 +1,23 @@
+---
+- name: Create master-apps directories
+  become: yes
+  become_user: "{{ splunk_user }}"
+  file:
+    state: directory
+    dest: "/opt/splunk/etc/master-apps/{{ item }}"
+    owner: "{{ splunk_user }}"
+    group: "{{ splunk_group }}"
+  with_items: 
+    - "{{  lookup ('filetree', '../templates/master-apps/' ) | selectattr('state', 'match', 'directory') | map(attribute = 'path') | list  }}"
+
+- name: Create master-apps files
+  become: yes
+  become_user: "{{ splunk_user }}"
+  template:
+    src: ../templates/master-apps/{{ item }}
+    dest: "/opt/splunk/etc/master-apps/{{ item }}"
+    owner: "{{ splunk_user }}"
+    group: "{{ splunk_group }}"
+  with_items:
+    - "{{  lookup ('filetree', '../templates/master-apps/' ) | selectattr('state', 'match', 'file') | map(attribute = 'path') | list  }}"
+  notify: apply cluster-bundle

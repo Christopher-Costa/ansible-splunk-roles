@@ -1,5 +1,5 @@
 ---
 # tasks file for splunk_cluster_master
 
-- include_tasks: install_CM_app.yml
-- include_tasks: install_TCP_app.yml
+- include_tasks: install_apps.yml
+- include_tasks: install_master-apps.yml

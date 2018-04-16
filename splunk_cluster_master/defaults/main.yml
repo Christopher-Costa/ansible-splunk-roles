@@ -1,5 +1,2 @@
 ---
 # defaults file for splunk_cluster_master
-
-cm_app_name: Lab_TA_role_Cluster_Master
-tcp_inputs_app_name: Lab_TA_inputs_SplunkTcp

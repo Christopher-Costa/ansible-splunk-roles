@@ -1,0 +1,23 @@
+---
+- name: Create apps directories
+  become: yes
+  become_user: "{{ splunk_user }}"
+  file:
+    state: directory
+    dest: "/opt/splunk/etc/apps/{{ item }}"
+    owner: "{{ splunk_user }}"
+    group: "{{ splunk_group }}"
+  with_items: 
+    - "{{  lookup ('filetree', '../templates/apps/' ) | selectattr('state', 'match', 'directory') | map(attribute = 'path') | list  }}"
+
+- name: Create apps files
+  become: yes
+  become_user: "{{ splunk_user }}"
+  template:
+    src: ../templates/apps/{{ item }}
+    dest: "/opt/splunk/etc/apps/{{ item }}"
+    owner: "{{ splunk_user }}"
+    group: "{{ splunk_group }}"
+  with_items:
+    - "{{  lookup ('filetree', '../templates/apps/' ) | selectattr('state', 'match', 'file') | map(attribute = 'path') | list  }}"
+  notify: restart Splunk

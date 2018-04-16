@@ -27,10 +27,13 @@
     -config {{ ca_dir }}/{{ ca_int_dir }}/openssl.cnf
     -in {{ ca_dir }}/{{ ca_int_dir }}/{{ ca_csr_dir }}/{{ server_csr_name }}
     -out {{ ca_dir }}/{{ ca_int_dir }}/{{ ca_cert_dir }}/{{ server_cert_name }}
+    ; sleep 5
   args:
     creates: "{{ ca_dir }}/{{ ca_int_dir }}/{{ ca_cert_dir }}/{{ server_cert_name }}" 
   when: item == inventory_hostname
   loop: "{{ play_hosts }}"
+  loop_control:
+    pause: 5
 
 - name: Fetch {{ cert_label }} certificate locally
   become: yes

@@ -1,0 +1,4 @@
+---
+# defaults file for splunk_ssl_outputs
+
+cert_label: Outputs

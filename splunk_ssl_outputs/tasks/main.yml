@@ -1,0 +1,4 @@
+---
+# tasks file for splunk_ssl_outputs
+
+- include_tasks: install_apps.yml

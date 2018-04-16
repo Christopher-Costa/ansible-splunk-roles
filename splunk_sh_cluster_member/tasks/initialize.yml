@@ -19,7 +19,7 @@
     -replication_port {{ splunk_sh_replication_port }}
     -replication_factor 2
     -conf_deploy_fetch_url https://{{ hostvars[deployer]['sys_ip'] }}:8089
-    -secret {{ splunk_cluster_password }}
+    -secret {{ splunk_shcluster_password }}
     -shcluster_label {{ splunk_shcluster_label }}
   when: shcluster_status.stderr.find("Search Head Clustering is not enabled on this node.") == false
   notify: 

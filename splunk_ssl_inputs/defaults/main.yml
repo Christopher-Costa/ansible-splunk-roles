@@ -1,4 +1,4 @@
 ---
 # defaults file for splunk_ssl_inputs
 
-app_name: Lab_TA_inputs_SSL_Config
+cert_label: Inputs

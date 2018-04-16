@@ -2,5 +2,3 @@
 # defaults file for splunk_ssl_web
 
 cert_label: Web
-
-app_name: Lab_TA_web_SSL_Config

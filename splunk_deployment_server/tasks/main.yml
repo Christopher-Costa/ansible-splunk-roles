@@ -6,3 +6,5 @@
 
 - include_tasks: install_deployment-apps.yml
   tags: update
+
+- include_tasks: firewall.yml

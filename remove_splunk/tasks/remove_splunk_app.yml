@@ -1,0 +1,29 @@
+---
+# tasks file for remove_splunk
+
+- name: Stop Splunk
+  become: yes
+  become_user: splunk
+  failed_when: no
+  command: /opt/splunk/bin/splunk stop
+
+- name: Remove splunk package
+  become: yes
+  failed_when: no
+  yum:
+    name: splunk
+    state: removed
+
+- name: remove /etc/init.d/splunk
+  become: yes
+  failed_when: no
+  file:
+    name: /etc/init.d/splunk
+    state: absent
+
+- name: remove /opt/splunk
+  become: yes
+  failed_when: no
+  shell: rm -rf --one-file-system /opt/splunk/*
+  args:
+    removes: /opt/splunk/etc 

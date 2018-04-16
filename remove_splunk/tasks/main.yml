@@ -1,0 +1,6 @@
+---
+# tasks file for remove_splunk
+
+- include_tasks: remove_splunk_app.yml
+- include_tasks: remove_local_files.yml
+- include_tasks: remove_ca_files.yml

@@ -1,0 +1,10 @@
+---
+- debug:
+    var: playbook_dir
+    
+
+- name: remove local files
+  delegate_to: localhost 
+  file:
+    path: "{{ playbook_dir }}/files/{{ inventory_hostname }}"
+    state: absent

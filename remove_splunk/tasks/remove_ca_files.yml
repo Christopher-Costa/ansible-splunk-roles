@@ -1,0 +1,26 @@
+---
+- name: find PKI files on the CA
+  delegate_to: "{{ certificate_authority }}" 
+  become: yes
+  find:
+    paths: /root/ca/intermediate
+    patterns: "{{ inventory_hostname }}*pem"
+    recurse: yes
+  register: pki_files
+
+- name: Remove PKI files on the CA
+  delegate_to: "{{ certificate_authority }}" 
+  become: yes
+  file:
+    name: "{{ item.path }}"
+    state: absent
+  with_items:
+    - "{{ pki_files.files }}"
+
+- name: Remove certificates from index.txt
+  delegate_to: "{{ certificate_authority }}" 
+  become: yes
+  lineinfile:
+    path: /root/ca/intermediate/index.txt
+    state: absent
+    regexp: "{{ inventory_hostname }}"
